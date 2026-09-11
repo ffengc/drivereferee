@@ -1,6 +1,8 @@
 # DriveReferee: Geometric Safety Verdicts Need Not Be Learned for Driving World-Action Models
 
-Fengcheng Yu, Jiawei Yang, Dhruv Parikh, Junjie Ye, Maulik Bhatt, Thang Vu, Igor Vasiljevic, Vitor Guizilini†, Yue Wang†
+Fengcheng Yu<sup>1</sup>, Jiawei Yang<sup>1</sup>, Dhruv Parikh<sup>1</sup>, Junjie Ye<sup>1</sup>, Maulik Bhatt<sup>2</sup>, Thang Vu<sup>2</sup>, Igor Vasiljevic<sup>2</sup>, Vitor Guizilini<sup>2†</sup>, Yue Wang<sup>1†</sup>
+
+<sup>1</sup>University of Southern California &nbsp;&nbsp;&middot;&nbsp;&nbsp; <sup>2</sup>Toyota Research Institute
 
 † Corresponding authors.
 
