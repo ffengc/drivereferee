@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="title" content="DriveReferee: Geometric Safety Verdicts Need Not Be Learned for Driving World-Action Models">
+  <meta name="description" content="DriveReferee predicts the missing scene state from camera observations and executes the known geometric safety rule, reaching 92.02 PDMS on the full NAVSIM navtest.">
+  <meta name="keywords" content="autonomous driving, world-action model, trajectory verification, preference distillation, NAVSIM, occupancy prediction, robot safety">
+  <meta name="author" content="Fengcheng Yu, Jiawei Yang, Dhruv Parikh, Junjie Ye, Maulik Bhatt, Thang Vu, Igor Vasiljevic, Vitor Guizilini, Yue Wang">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="DriveReferee: Geometric Safety Verdicts Need Not Be Learned for Driving World-Action Models">
+  <meta property="og:description" content="DriveReferee predicts the missing scene state from camera observations and executes the known geometric safety rule, reaching 92.02 PDMS on the full NAVSIM navtest.">
+  <!-- TODO: set the final URL once the page is live -->
+  <meta property="og:url" content="">
+  <meta property="og:image" content="static/images/teaser.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DriveReferee">
+  <meta name="twitter:description" content="Geometric safety verdicts need not be learned for driving world-action models.">
+  <meta name="twitter:image" content="static/images/teaser.png">
+
+  <title>DriveReferee</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <style>
+    .results-table { font-size: 0.92rem; }
+    .results-table th { white-space: nowrap; }
+    .results-table td.method { white-space: nowrap; }
+    .results-table tr.ours { background-color: #f5f8ff; }
+    .results-table tr.best td { font-weight: 700; }
+    .table-note { font-size: 0.82rem; color: #555; margin-top: 0.75rem; }
+    .button.is-disabled { pointer-events: none; opacity: 0.55; }
+    .fig-caption { font-size: 0.92rem; color: #4a4a4a; }
+    .teaser-block { max-width: 800px; margin: 0 auto; }
+    .teaser-block img { display: block; margin: 0 auto; }
+    .teaser-block .fig-caption { font-size: 0.85rem; line-height: 1.35; }
+    .teaser-c { max-width: 620px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">DriveReferee: Geometric Safety Verdicts Need Not Be Learned for Driving World-Action Models</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Fengcheng Yu,</span>
+            <span class="author-block">Jiawei Yang,</span>
+            <span class="author-block">Dhruv Parikh,</span>
+            <span class="author-block">Junjie Ye,</span>
+            <span class="author-block">Maulik Bhatt,</span>
+            <span class="author-block">Thang Vu,</span>
+            <span class="author-block">Igor Vasiljevic,</span>
+            <span class="author-block">Vitor Guizilini<sup>&dagger;</sup>,</span>
+            <span class="author-block">Yue Wang<sup>&dagger;</sup></span>
+          </div>
+
+          <!-- TODO: assign per-author superscripts once confirmed -->
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University of Southern California &nbsp;&middot;&nbsp; Toyota Research Institute</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>&dagger;</sup>Corresponding authors</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- TODO: replace with the real arXiv abstract URL before publishing -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <span class="external-link button is-normal is-rounded is-dark is-disabled">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code (coming soon)</span>
+                </span>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="teaser-block">
+        <div class="columns is-vcentered is-variable is-2">
+          <div class="column is-5">
+            <img src="static/images/concept_a.png" alt="Privileged evaluation.">
+            <p class="fig-caption has-text-centered" style="margin-top: 0.4rem;">
+              <b>(a) Privileged evaluation.</b> The rule is known, but the ground-truth scene state is
+              unavailable at deployment.
+            </p>
+          </div>
+          <div class="column is-7">
+            <img src="static/images/concept_b.png" alt="Learned verifier.">
+            <p class="fig-caption has-text-centered" style="margin-top: 0.4rem;">
+              <b>(b) Learned verifier.</b> One network must infer the scene and approximate the rule at once.
+            </p>
+          </div>
+        </div>
+        <div class="teaser-c" style="margin-top: 0.75rem;">
+          <img src="static/images/concept_c.png" alt="DriveReferee predicts the scene state and executes the known rule.">
+          <p class="fig-caption has-text-centered" style="margin-top: 0.4rem;">
+            <b>(c) DriveReferee.</b> Predict the missing state and execute the known rule.
+          </p>
+        </div>
+        <p class="fig-caption has-text-centered" style="margin-top: 1.25rem;">
+          The geometric safety verdict is a computation whose input, not whose logic, is missing at deployment.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Generative world-action models (WAMs) jointly generate future video and vehicle actions, while
+            their action branches remain primarily optimized by expert imitation. Yet imitation provides no
+            explicit closed-loop geometric verdict for generated trajectories, making verification important
+            during both training and deployment. Closed-loop evaluators can check collision and drivable-area
+            violations, but require privileged scene state unavailable at deployment. Existing approaches often
+            address this gap by learning a verifier from sensor features. For these geometric checks, the rule
+            itself is explicit. For example, collision is determined by whether the rolled-out ego footprint
+            overlaps occupied vehicle space. What is unavailable at deployment is the scene state needed to
+            apply the rule.
+          </p>
+          <p>
+            We introduce <b>DriveReferee</b>, which uses a learned geometry readout to predict the scene
+            representation from camera observations and executes the geometric safety rule directly rather than
+            learning it. The resulting analytic referee evaluates collision and drivable-area safety from a
+            scene state and candidate trajectory. During training, it scores self-sampled trajectories on
+            ground-truth state and distills the resulting preferences into the WAM policy. At deployment, the
+            same referee evaluates generated trajectories on this predicted state and selects a safer
+            alternative when needed. The analytic referee requires no verdict-specific training, and its
+            decisions follow an explicit geometric rule. Under matched candidates and inference budgets, it
+            matches or outperforms all learned-verifier and heuristic baselines. Given the same predicted state
+            and trajectory, learning the verdict provides no measurable downstream gain despite requiring tens
+            of thousands of evaluator-labeled training examples. On the full NAVSIM navtest, DriveReferee
+            reaches <b>92.02 PDMS</b> with single-camera visual input and no external training data.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Method</h2>
+        <img src="static/images/method.png" alt="DriveReferee overview: policy, perception readout, and analytic referee.">
+        <div class="content has-text-justified fig-caption" style="margin-top: 1rem;">
+          <p>
+            The policy generates future video and candidate plans; the readout predicts the BEV scene state
+            (drivable area and time-indexed vehicle occupancy) from frozen visual features and ego-pose history.
+            The analytic referee, with no learned parameters, is placed twice: at training on ground-truth maps
+            to form preference pairs that are distilled into the generator, and at deployment on the predicted
+            map to gate the default plan and, on alarm, rank further samples on the same map.
+          </p>
+        </div>
+        <div class="content">
+          <ul>
+            <li><b>World-action policy.</b> A frozen reasoner tower plus a trained generation tower produce a
+              future video and a decoded plan per sample, so repeated sampling yields candidate trajectories
+              without a separate proposal network.</li>
+            <li><b>Perception readout.</b> A lightweight head on frozen visual features predicts the drivable-area
+              and vehicle-occupancy maps that the referee needs, using privileged rasterized annotations as
+              training supervision only.</li>
+            <li><b>Analytic referee.</b> Kinematic rollout with the evaluator's LQR tracker and bicycle model,
+              footprint checks at four corners and the center, and metric clearance margins from a distance
+              transform. Zero learned parameters.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            Comparison with representative world-model-based planners on NAVSIM navtest (12,146 scenes).
+            <i>N</i>&times;C denotes <i>N</i> cameras and +L denotes LiDAR. PDMS follows NAVSIM v1 and EPDMS
+            follows v2. With single-camera visual input and no external training data, the complete system
+            reaches 92.02 PDMS and 91.56 EPDMS, outperforming the listed generative world-action models on both
+            reported official metrics.
+          </p>
+        </div>
+
+        <div class="table-container">
+          <table class="table is-fullwidth is-narrow results-table">
+            <thead>
+              <tr>
+                <th>Method</th><th>Input</th><th>Video</th>
+                <th>NC&uarr;</th><th>DAC&uarr;</th><th>TTC&uarr;</th><th>Comf.&uarr;</th><th>EP&uarr;</th>
+                <th>PDMS&uarr;</th><th>EPDMS&uarr;</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="method">DrivingGPT</td><td>1&times;C</td><td>&#10003;</td><td>98.9</td><td>90.7</td><td>94.9</td><td>95.6</td><td>79.7</td><td>82.4</td><td>&mdash;</td></tr>
+              <tr><td class="method">WoTE</td><td>3&times;C+L</td><td>&#10007;</td><td>98.5</td><td>96.8</td><td>94.9</td><td>99.9</td><td>81.9</td><td>88.3</td><td>&mdash;</td></tr>
+              <tr><td class="method">DriveVLA-W0</td><td>1&times;C</td><td>&#10003;<sup>&dagger;</sup></td><td>98.7</td><td>99.1</td><td>95.3</td><td>99.3</td><td>83.3</td><td>90.2</td><td>86.1</td></tr>
+              <tr><td class="method">PWM</td><td>1&times;C</td><td>&#10003;</td><td>98.6</td><td>95.9</td><td>95.4</td><td>100.0</td><td>81.8</td><td>88.1</td><td>&mdash;</td></tr>
+              <tr><td class="method">DriveLaW<sup>&Dagger;</sup></td><td>1&times;C</td><td>&#10003;<sup>&dagger;</sup></td><td>99.0</td><td>97.1</td><td>96.7</td><td>100.0</td><td>81.3</td><td>89.1</td><td>&mdash;</td></tr>
+              <tr><td class="method">CoPhy<sup>&sect;</sup></td><td>C+L</td><td>&#10007;</td><td>99.0</td><td>98.2</td><td>96.8</td><td>100.0</td><td>85.3</td><td>91.4</td><td>86.1</td></tr>
+              <tr><td class="method">DriveDreamer-Policy</td><td>3&times;C</td><td>&#10003;</td><td>98.4</td><td>97.1</td><td>95.1</td><td>100.0</td><td>83.5</td><td>89.2</td><td>88.7</td></tr>
+              <tr><td class="method">Metis</td><td>1&times;C</td><td>&#10003;</td><td>98.3</td><td>97.1</td><td>94.7</td><td>100.0</td><td>83.4</td><td>89.1</td><td>89.5</td></tr>
+              <tr><td class="method">DriveVA<sup>&Dagger;</sup></td><td>1&times;C</td><td>&#10003;</td><td>99.2</td><td>97.5</td><td>98.7</td><td>100.0</td><td>83.5</td><td>90.9</td><td>&mdash;</td></tr>
+              <tr><td class="method">UNIVERSE</td><td>1&times;C</td><td>&#10003;<sup>&dagger;</sup></td><td>99.1</td><td>97.6</td><td>98.5</td><td>100.0</td><td>83.6</td><td>91.0</td><td>&mdash;</td></tr>
+              <tr class="ours"><td class="method">Ours (base, 4B backbone)</td><td>1&times;C</td><td>&#10003;</td><td>99.22</td><td>97.37</td><td>96.86</td><td>100.00</td><td>84.09</td><td>90.47</td><td>90.03</td></tr>
+              <tr class="ours"><td class="method">Ours (full, 4B backbone)</td><td>1&times;C</td><td>&#10003;</td><td>99.21</td><td>98.25</td><td>96.86</td><td>100.00</td><td>85.36</td><td>91.50</td><td>91.08</td></tr>
+              <tr class="ours"><td class="method">Ours (base, 16B backbone)</td><td>1&times;C</td><td>&#10003;</td><td>99.31</td><td>97.79</td><td>97.41</td><td>100.00</td><td>84.45</td><td>91.08</td><td>90.69</td></tr>
+              <tr class="ours best"><td class="method">Ours (full, 16B backbone)</td><td>1&times;C</td><td>&#10003;</td><td>99.49</td><td>98.64</td><td>97.91</td><td>100.00</td><td>84.99</td><td>92.02</td><td>91.56</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="table-note">
+          <sup>&dagger;</sup>Trained with video generation but no video is generated at test time.
+          <sup>&Dagger;</sup>DriveVA uses extra CARLA data; DriveLaW uses nuPlan and nuScenes.
+          <sup>&sect;</sup>CoPhy uses external VQA data and multi-candidate inference. Metis reports single-pass
+          inference; its oracle best-of-6 result is excluded. "Full" denotes referee distillation with
+          <i>K</i>=2 gated selection. Our 4B/16B models use Cosmos3-Edge/Cosmos3-Nano, with 2B/8B trainable
+          generation towers; the reasoner towers are frozen.
+        </p>
+
+        <div class="content" style="margin-top: 3rem;">
+          <h3 class="title is-5 has-text-centered">Does the verdict need to be learned?</h3>
+        </div>
+
+        <div class="columns is-vcentered">
+          <div class="column is-7">
+            <img src="static/images/verdict_sources.png" alt="Matched-budget comparison of verdict sources.">
+            <p class="fig-caption" style="margin-top: 0.5rem;">
+              Per-scene paired &Delta;EPDMS relative to the imitation-only base on navtest. All sources use the
+              same pre-sampled <i>K</i>=2 candidates and are calibrated to the same average sampling budget.
+              Error bars are bootstrap 95% confidence intervals.
+            </p>
+          </div>
+          <div class="column is-5">
+            <img src="static/images/verdict_scaling.png" alt="Verdict-supervision scaling in the same-map setting.">
+            <p class="fig-caption" style="margin-top: 0.5rem;">
+              Same-map setting, varying only the amount of verdict-training data; 100% is 66,385 training
+              candidates. The analytic referee uses no verdict-training labels.
+            </p>
+          </div>
+        </div>
+
+        <div class="content has-text-justified">
+          <ul>
+            <li>Under matched candidates and a matched sampling budget, the best learned verifiers improve
+              EPDMS by +0.23 and +0.26, while the analytic referee reaches +0.30. None of the learned verifiers
+              performs significantly better.</li>
+            <li>In the same-map control, where a learned verifier receives the same predicted map, candidate
+              trajectory, and motion state as the analytic referee, 66,385 evaluator-labeled training candidates
+              give a paired difference of &minus;0.01 &Delta;EPDMS (95% CI [&minus;0.15, +0.14]), and the two
+              select the same plan in 83.4% of scenes.</li>
+            <li>The same referee in two placements: training-time preference distillation gives
+              +0.92 &Delta;EPDMS (95% CI [+0.71, +1.13]) over the imitation-only base, and deployment-time gated
+              selection on the undistilled base gives +0.30 ([+0.18, +0.42]).</li>
+            <li>Referee distillation preserves video-generation quality: FVD 23.90 &rarr; 24.25,
+              LPIPS 0.4166 &rarr; 0.4126, PSNR 18.75 &rarr; 18.92 on the same scenes, protocol, and seeds.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full">
+        <h2 class="title is-3 has-text-centered">Deployment-Time Verification</h2>
+        <img src="static/images/qualitative.png" alt="Deployment-time verification on self-predicted maps.">
+        <div class="content has-text-justified fig-caption" style="margin-top: 1rem;">
+          <p>
+            Verification on self-predicted maps with the base policy and <i>K</i>=2. (a) One intervention
+            example: at the flagged state the default plan crosses the predicted drivable boundary by 0.40 m,
+            while the referee-selected plan keeps 1.26 m clearance. The signed-distance curve and the projected
+            boundaries show the same failure in BEV and in video space. (b) Four additional replacements found
+            by automatic screening, where the default plan leaves the ground-truth drivable area while the
+            selected plan stays inside both the predicted and ground-truth boundaries.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <!-- TODO: fill in the arXiv number once the preprint is live -->
+    <pre><code>@article{yu2026drivereferee,
+  title   = {DriveReferee: Geometric Safety Verdicts Need Not Be Learned
+             for Driving World-Action Models},
+  author  = {Yu, Fengcheng and Yang, Jiawei and Parikh, Dhruv and Ye, Junjie
+             and Bhatt, Maulik and Vu, Thang and Vasiljevic, Igor
+             and Guizilini, Vitor and Wang, Yue},
+  journal = {arXiv preprint arXiv:XXXX.XXXXX},
+  year    = {2026}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This page was built using the
+            <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>
+            which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page
+            in the footer. <br> This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
