@@ -1,10 +1,10 @@
 # DriveReferee: Geometric Safety Verdicts Need Not Be Learned for Driving World-Action Models
 
-Fengcheng Yu<sup>1</sup>, Jiawei Yang<sup>1</sup>, Dhruv Parikh<sup>1</sup>, Junjie Ye<sup>1</sup>, Maulik Bhatt<sup>2</sup>, Thang Vu<sup>2</sup>, Igor Vasiljevic<sup>2</sup>, Vitor Guizilini<sup>2†</sup>, Yue Wang<sup>1†</sup>
+Fengcheng Yu<sup>1</sup>, Dhruv Parikh<sup>1</sup>, Junjie Ye<sup>1</sup>, Maulik Bhatt<sup>2</sup>, Thang Vu<sup>2</sup>, Igor Vasiljevic<sup>3</sup>, Vitor Guizilini<sup>3†</sup>, Yue Wang<sup>1†</sup>
 
-<sup>1</sup>University of Southern California &nbsp;&nbsp;&middot;&nbsp;&nbsp; <sup>2</sup>Toyota Research Institute
+<sup>1</sup>University of Southern California &nbsp;&nbsp;&middot;&nbsp;&nbsp; <sup>2</sup>Woven by Toyota &nbsp;&nbsp;&middot;&nbsp;&nbsp; <sup>3</sup>Toyota Research Institute
 
-† Corresponding authors.
+† Equal advising.
 
 Generative world-action models jointly generate future video and vehicle actions, but their
 action branch is trained by imitation and gets no closed-loop geometric verdict. DriveReferee
@@ -33,7 +33,7 @@ Built on [NVIDIA Cosmos-Framework](https://github.com/nvidia-cosmos/cosmos-frame
 @article{yu2026drivereferee,
   title   = {DriveReferee: Geometric Safety Verdicts Need Not Be Learned
              for Driving World-Action Models},
-  author  = {Yu, Fengcheng and Yang, Jiawei and Parikh, Dhruv and Ye, Junjie
+  author  = {Yu, Fengcheng and Parikh, Dhruv and Ye, Junjie
              and Bhatt, Maulik and Vu, Thang and Vasiljevic, Igor
              and Guizilini, Vitor and Wang, Yue},
   journal = {arXiv preprint arXiv:XXXX.XXXXX},
