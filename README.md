@@ -18,7 +18,9 @@ and no external training data.
 
 Built on [NVIDIA Cosmos-Framework](https://github.com/nvidia-cosmos/cosmos-framework).
 
-**Paper:** [arXiv](https://arxiv.org/abs/2609.22762) &nbsp;&nbsp; **Project page:** [ffengc.github.io/drivereferee](https://ffengc.github.io/drivereferee/) &nbsp;&nbsp; **Code:** coming soon
+**Paper:** [arXiv](https://arxiv.org/abs/2609.22762) &nbsp;&nbsp; **Project page:** [ffengc.github.io/drivereferee](https://ffengc.github.io/drivereferee/)
+
+> **Code coming soon.**
 
 ## News & Updates
 
