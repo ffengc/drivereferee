@@ -18,16 +18,14 @@ and no external training data.
 
 Built on [NVIDIA Cosmos-Framework](https://github.com/nvidia-cosmos/cosmos-framework).
 
-<!-- TODO: fill in the arXiv and project page links once they are live -->
-**Paper:** arXiv (coming soon) &nbsp;&nbsp; **Project page:** https://ffengc.github.io/drivereferee/ &nbsp;&nbsp; **Code:** coming soon
+**Paper:** [arXiv](https://arxiv.org/abs/2609.22762) &nbsp;&nbsp; **Project page:** [ffengc.github.io/drivereferee](https://ffengc.github.io/drivereferee/) &nbsp;&nbsp; **Code:** coming soon
 
 ## News & Updates
 
+- [2026-09-19] Paper released on [arXiv](https://arxiv.org/abs/2609.22762).
 - [2026-09-15] Submitted to ICRA 2027.
 
 ## Citation
-
-<!-- TODO: fill in the arXiv number once the preprint is live -->
 
 ```bibtex
 @article{yu2026drivereferee,
@@ -36,7 +34,7 @@ Built on [NVIDIA Cosmos-Framework](https://github.com/nvidia-cosmos/cosmos-frame
   author  = {Yu, Fengcheng and Parikh, Dhruv and Ye, Junjie
              and Bhatt, Maulik and Vu, Thang and Vasiljevic, Igor
              and Guizilini, Vitor and Wang, Yue},
-  journal = {arXiv preprint arXiv:XXXX.XXXXX},
+  journal = {arXiv preprint arXiv:2609.22762},
   year    = {2026}
 }
 ```
