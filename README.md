@@ -20,10 +20,26 @@ Built on [NVIDIA Cosmos-Framework](docs/cosmos_framework_readme.md).
 
 **Paper:** [arXiv](https://arxiv.org/abs/2609.22762) &nbsp;&nbsp; **Project page:** [ffengc.github.io/drivereferee](https://ffengc.github.io/drivereferee/)
 
+> **Checkpoints coming soon.**
+
 ## News & Updates
 
 - [2026-09-19] Paper released on [arXiv](https://arxiv.org/abs/2609.22762).
 - [2026-09-15] Submitted to ICRA 2027.
+
+## Citation
+
+```bibtex
+@article{yu2026drivereferee,
+  title   = {DriveReferee: Geometric Safety Verdicts Need Not Be Learned
+             for Driving World-Action Models},
+  author  = {Yu, Fengcheng and Parikh, Dhruv and Ye, Junjie
+             and Bhatt, Maulik and Vu, Thang and Vasiljevic, Igor
+             and Guizilini, Vitor and Wang, Yue},
+  journal = {arXiv preprint arXiv:2609.22762},
+  year    = {2026}
+}
+```
 
 ## Setup
 
@@ -74,17 +90,3 @@ with a bootstrap confidence interval.
 - `tools/` data conversion (`navsim2gear/`), occupancy GT, inference dump, referee, pair
   building, map generator, gated selection, scoring helpers.
 - `scripts/` the pipeline drivers above.
-
-## Citation
-
-```bibtex
-@article{yu2026drivereferee,
-  title   = {DriveReferee: Geometric Safety Verdicts Need Not Be Learned
-             for Driving World-Action Models},
-  author  = {Yu, Fengcheng and Parikh, Dhruv and Ye, Junjie
-             and Bhatt, Maulik and Vu, Thang and Vasiljevic, Igor
-             and Guizilini, Vitor and Wang, Yue},
-  journal = {arXiv preprint arXiv:2609.22762},
-  year    = {2026}
-}
-```
