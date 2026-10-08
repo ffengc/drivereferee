@@ -24,6 +24,7 @@ Built on [NVIDIA Cosmos-Framework](docs/cosmos_framework_readme.md).
 
 ## News & Updates
 
+- [2026-10-08] Code released.
 - [2026-09-19] Paper released on [arXiv](https://arxiv.org/abs/2609.22762).
 - [2026-09-15] Submitted to ICRA 2027.
 
