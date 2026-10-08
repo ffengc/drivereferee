@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: OpenMDW-1.1
+# Modified by Fengcheng Yu, 2026.
+
+# NavSim base policy (4 history frames): run-level scalars for `action_policy_navsim_h4_nano`.
+# Recipe knobs live in the registered experiment; scripts/02_train_base.sh overrides the
+# schedule per stage.
+
+[job]
+task         = "vfm"
+experiment   = "action_policy_navsim_h4_nano"
+project      = "cosmos3_action"
+group        = "action_sft"
+name         = "navsim_h4_base"
+wandb_mode   = "disabled"
+
+[model]
+precision = "bfloat16"
+
+[model.parallelism]
+data_parallel_shard_degree     = 8
+data_parallel_replicate_degree = 1
+
+[model.activation_checkpointing]
+mode           = "full"
+save_ops_regex = ["fmha"]
+
+[model.tokenizer]
+vae_path = "${oc.env:WAN_VAE_PATH}"
+
+[scheduler]
+cycle_lengths = [48000]
+
+[trainer]
+max_iter     = 48000
+logging_iter = 50
+
+[checkpoint]
+load_path = "${oc.env:BASE_CHECKPOINT_PATH}"
+save_iter = 8000

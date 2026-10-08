@@ -1,0 +1,41 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: OpenMDW-1.1
+# Modified by Fengcheng Yu, 2026.
+
+# Referee distillation: run-level scalars for `action_policy_navsim_pref_h4_nano`.
+# Env: NAVSIM_GEAR_ROOT, BASE_CHECKPOINT_PATH (merged base), WAN_VAE_PATH,
+#      PAIRS_MANIFEST (pairs.jsonl), SELFPLAY_ROOT (seed*/test/<token>.npy).
+# scripts/05_train_preference.sh sets max_iter from the number of pairs.
+
+[job]
+task         = "vfm"
+experiment   = "action_policy_navsim_pref_h4_nano"
+project      = "cosmos3_action"
+group        = "action_sft"
+name         = "navsim_h4_pref"
+wandb_mode   = "disabled"
+
+[model]
+precision = "bfloat16"
+
+[model.parallelism]
+data_parallel_shard_degree     = 8
+data_parallel_replicate_degree = 1
+
+[model.activation_checkpointing]
+mode           = "full"
+save_ops_regex = ["fmha"]
+
+[model.tokenizer]
+vae_path = "${oc.env:WAN_VAE_PATH}"
+
+[scheduler]
+cycle_lengths = [240]
+
+[trainer]
+max_iter     = 240
+logging_iter = 10
+
+[checkpoint]
+load_path = "${oc.env:BASE_CHECKPOINT_PATH}"
+save_iter = 240
