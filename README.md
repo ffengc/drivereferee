@@ -16,14 +16,15 @@ at deployment the same referee runs on the predicted state and selects a safer c
 needed. On the full NAVSIM navtest, DriveReferee reaches 92.02 PDMS with a single front camera
 and no external training data.
 
-Built on [NVIDIA Cosmos-Framework](https://github.com/nvidia-cosmos/cosmos-framework).
+Built on [NVIDIA Cosmos-Framework](https://github.com/NVIDIA/cosmos-framework).
 
 **Paper:** [arXiv](https://arxiv.org/abs/2609.22762) &nbsp;&nbsp; **Project page:** [ffengc.github.io/drivereferee](https://ffengc.github.io/drivereferee/)
 
-> **Code coming soon.**
+> **Checkpoints coming soon.**
 
 ## News & Updates
 
+- [2026-10-08] Code released.
 - [2026-09-19] Paper released on [arXiv](https://arxiv.org/abs/2609.22762).
 - [2026-09-15] Submitted to ICRA 2027.
 
